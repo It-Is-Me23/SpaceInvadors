@@ -175,6 +175,7 @@ run = True
 lives = 3
 cooldown = 0
 loop = 0
+change = False
 r_shots = []
 g_shots = []
 aliens = []
@@ -210,16 +211,22 @@ while run:
             r_shots.remove(laser)
 
     for alien in aliens:
-        if alien.direction == 'left' and aliens[0].x > 200:  # FIX
+        if alien.direction == 'left' and not change:
             alien.x -= 1
-        elif alien.direction == 'right' and max(a.x for a in aliens) < width - 200 - alien.w:
+            if min(a.x for a in aliens) <= 150 and alien == aliens[-1]:
+                change = True
+        elif alien.direction == 'right' and not change:
             alien.x += 1
-        else:
+            if max(a.x for a in aliens) >= width - 150 - alien.w and alien == aliens[-1]:
+                change = True
+        elif change:
             alien.y += 40
             if alien.direction == 'right':
                 alien.direction = 'left'
             else:
                 alien.direction = 'right'
+            if alien == aliens[-1]:
+                change = False
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -251,12 +258,13 @@ while run:
 
     if keys[pygame.K_ESCAPE]:
         run = False
-    if (keys[pygame.K_LEFT] or keys[pygame.K_a]) and spaceship.x >= 200:
+    if (keys[pygame.K_LEFT] or keys[pygame.K_a]) and spaceship.x >= 100:
         spaceship.x -= spaceship.vel
-    if (keys[pygame.K_RIGHT] or keys[pygame.K_d]) and spaceship.x <= width - 200 - spaceship.w:
+    if (keys[pygame.K_RIGHT] or keys[pygame.K_d]) and spaceship.x <= width - 100 - spaceship.w:
         spaceship.x += spaceship.vel
     if keys[pygame.K_m]:
         pygame.mixer.music.play(-1)
+        # pygame.mixer.music.stop()
 
     drawWindow(window, loop)
     loop += 1
