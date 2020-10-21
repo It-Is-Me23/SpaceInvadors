@@ -1,4 +1,5 @@
 
+import os
 import pygame
 pygame.init()
 
@@ -12,8 +13,8 @@ height = 801
 
 window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
 pygame.display.set_caption('Space Invadors')
-images = 'C:/Users/Christian/OneDrive/Documents/Coding/Git/SpaceInvadors/Images/'
-sounds = 'C:/Users/Christian/OneDrive/Documents/Coding/Git/SpaceInvadors/Sounds/'
+images = os.getcwd() + '/Images/'
+sounds = os.getcwd() + '/Sounds/'
 hearts = pygame.image.load(images + 'hearts.jpg')
 fire = pygame.mixer.Sound(sounds + 'lasershot1.wav')
 fire3 = pygame.mixer.Sound(sounds + 'lasershot2.wav')
