@@ -2,8 +2,6 @@
 import pygame
 pygame.init()
 
-# fix bug at 210 & 212
-
 # debug settings
 showHitBoxes = True
 showMouse = True
@@ -14,11 +12,13 @@ height = 801
 
 window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
 pygame.display.set_caption('Space Invadors')
-hearts = pygame.image.load('C:/Users/Christian/OneDrive/Documents/Coding/Python_Code/Space Invadors/Images/hearts.jpg')
-fire = pygame.mixer.Sound('C:/Users/Christian/OneDrive/Documents/Coding/Python_Code/Space Invadors/Sounds/lasershot1.wav')
-fire3 = pygame.mixer.Sound('C:/Users/Christian/OneDrive/Documents/Coding/Python_Code/Space Invadors/Sounds/lasershot2.wav')
-explosion = pygame.mixer.Sound('C:/Users/Christian/OneDrive/Documents/Coding/Python_Code/Space Invadors/Sounds/explosion.wav')
-pygame.mixer.music.load('C:/Users/Christian/OneDrive/Documents/Coding/Python_Code/Space Invadors/Sounds/Fade.mp3')
+images = 'C:/Users/Christian/OneDrive/Documents/Coding/Git/SpaceInvadors/Images/'
+sounds = 'C:/Users/Christian/OneDrive/Documents/Coding/Git/SpaceInvadors/Sounds/'
+hearts = pygame.image.load(images + 'hearts.jpg')
+fire = pygame.mixer.Sound(sounds + 'lasershot1.wav')
+fire3 = pygame.mixer.Sound(sounds + 'lasershot2.wav')
+explosion = pygame.mixer.Sound(sounds + 'explosion.wav')
+pygame.mixer.music.load(sounds + 'Fade.mp3')
 clock = pygame.time.Clock()
 
 
@@ -29,7 +29,7 @@ class spaceships:
         self.x = int(width / 2 - 100 / 2)
         self.y = height - 62 - 80
         self.vel = 3
-        self.image = pygame.image.load('C:/Users/Christian/OneDrive/Documents/Coding/Python_Code/Space Invadors/Images/spaceship.jpg')
+        self.image = pygame.image.load(images + 'spaceship.jpg')
         self.hitbox = (self.x + 16, self.y + 6, self.w - 32, self.h - 15)
 
     def draw(self, window):
@@ -57,7 +57,7 @@ class lasers:
 
 
 class alien1:
-    explode = pygame.image.load('C:/Users/Christian/OneDrive/Documents/Coding/Python_Code/Space Invadors/Images/explosion.png')
+    explode = pygame.image.load(images + 'explosion.png')
 
     def __init__(self, x, y):
         self.w = 50
@@ -66,7 +66,7 @@ class alien1:
         self.y = y
         self.vel = 1
         self.direction = 'right'
-        self.image = pygame.image.load('C:/Users/Christian/OneDrive/Documents/Coding/Python_Code/Space Invadors/Images/alien1.jpg')
+        self.image = pygame.image.load(images + 'alien1.jpg')
         self.hitbox = (self.x + 15, self.y + 21, self.w - 30, self.h - 42)
 
     def draw(self, window):
@@ -83,7 +83,7 @@ class alien1:
 class alien2(alien1):
     def __init__(self, x, y):
         super().__init__(x, y)
-        self.image = pygame.image.load('C:/Users/Christian/OneDrive/Documents/Coding/Python_Code/Space Invadors/Images/alien2.jpg')
+        self.image = pygame.image.load(images + 'alien2.jpg')
         self.hitbox = (self.x + 16, self.y + 16, self.w - 32, self.h - 32)
 
     def draw(self, window):
@@ -96,7 +96,7 @@ class alien2(alien1):
 class alien3(alien1):
     def __init__(self, x, y):
         super().__init__(x, y)
-        self.image = pygame.image.load('C:/Users/Christian/OneDrive/Documents/Coding/Python_Code/Space Invadors/Images/alien3.png')
+        self.image = pygame.image.load(images + 'alien3.png')
         self.hitbox = (self.x + 18, self.y + 25, self.w - 36, self.h - 39)
 
     def draw(self, window):
@@ -111,7 +111,7 @@ class alien4(alien1):
         super().__init__(x, y)
         self.w = 60
         self.h = 60
-        self.image = pygame.image.load('C:/Users/Christian/OneDrive/Documents/Coding/Python_Code/Space Invadors/Images/alien4.jpg')
+        self.image = pygame.image.load(images + 'alien4.jpg')
         self.hitbox = (self.x + 5, self.y + 16, self.w - 10, self.h - 32)
 
     def draw(self, window):
@@ -126,7 +126,7 @@ class alien5(alien1):
         super().__init__(x, y)
         self.w = 70
         self.h = 70
-        self.image = pygame.image.load('C:/Users/Christian/OneDrive/Documents/Coding/Python_Code/Space Invadors/Images/alien5.jpg')
+        self.image = pygame.image.load(images + 'alien5.jpg')
         self.hitbox = (self.x + 2, self.y + 24, self.w - 4, self.h - 48)
 
     def draw(self, window):
@@ -234,21 +234,21 @@ while run:
         if event.type == pygame.MOUSEBUTTONUP:
             if event.button == pygame.BUTTON_LEFT and cooldown == 0:
                 fire.play()
-                laser = lasers(int(spaceship.x + spaceship.w / 2 - 5), spaceship.y - 24 + 8, pygame.image.load('C:/Users/Christian/OneDrive/Documents/Coding/Python_Code/Space Invadors/Images/laser1.png'))
+                laser = lasers(int(spaceship.x + spaceship.w / 2 - 5), spaceship.y - 24 + 8, pygame.image.load(images + 'laser1.png'))
                 r_shots.append(laser)
                 cooldown += 1
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == pygame.BUTTON_RIGHT and cooldown == 0:
                 # fire3.play()
                 # for i in [0, 48, 96]:
-                #     laser = lasers(int(spaceship.x + spaceship.w / 2 - 5), spaceship.y - 24 + 8 - i, pygame.image.load('C:/Users/Christian/OneDrive/Documents/Coding/Python_Code/Space Invadors/Images/laser1.png'))
+                #     laser = lasers(int(spaceship.x + spaceship.w / 2 - 5), spaceship.y - 24 + 8 - i, pygame.image.load(images + 'laser1.png'))
                 #     r_shots.append(laser)
                 # cooldown += 1
                 pass
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_SPACE and cooldown == 0:
                 fire.play()
-                laser = lasers(int(spaceship.x + spaceship.w / 2 - 5), spaceship.y - 24 + 8, pygame.image.load('C:/Users/Christian/OneDrive/Documents/Coding/Python_Code/Space Invadors/Images/laser1.png'))
+                laser = lasers(int(spaceship.x + spaceship.w / 2 - 5), spaceship.y - 24 + 8, pygame.image.load(images + 'laser1.png'))
                 r_shots.append(laser)
                 cooldown += 1
 
