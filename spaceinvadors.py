@@ -96,6 +96,16 @@ class alien1:
         explosion.play()
         self.image = self.explode
 
+    def blink(self, window):
+        siren.play()
+        for i in range(3):
+            window.fill((0, 0, 0), self.hitbox)
+            pygame.display.update()
+            pygame.time.delay(200)
+            self.draw(window)
+            pygame.display.update()
+            pygame.time.delay(200)
+
 
 class alien2(alien1):
     def __init__(self, x, y):
@@ -167,7 +177,7 @@ class alien5(alien1):
 def drawWindow(window, loop):
     clock.tick(144)
     window.fill((0, 0, 0))
-    if lives == 0:
+    if lives <= 0:
         font = pygame.font.Font(fonts + 'VCR_OSD_MONO_1.001.ttf', 200)
         text = font.render('YOU LOST!', True, (0, 255, 0))
         window.blit(text, (int((width - text.get_width()) / 2), int((height - text.get_height()) / 2)))
@@ -247,7 +257,10 @@ while run:
                 aliens.remove(alien)
                 spaceship.blink(window)
                 lives -= 1
-        # add if alien passes the spaceship
+        elif alien.hitbox[1] > spaceship.hitbox[1]:
+            aliens.remove(alien)
+            alien.blink(window)
+            lives -= 1
 
     for laser in r_shots:
         if laser.y >= 0:
